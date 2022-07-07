@@ -1,7 +1,7 @@
 const express = require('express')
 const sqlite3 = require('sqlite3')
 const app = express();
-const port = 3000;
+// const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded());
@@ -39,6 +39,19 @@ app.get("/:id", (req, res, next) => {
     function(err, result){
         if(err) {
             res.status(400).json({ "error": err.message })
+            return;
+        }
+        res.send(result);
+    })
+})
+
+
+app.patch("/edit/:id", (req, res, next) => {
+    const id = req.params.id;
+    db.all(`UPDATE cliente SET nome="Marta", telefone="513796482", cpf="87546932154" WHERE id=${id}`,
+    function(err, result){
+        if(err){
+            res.status(400).jsoon({"error":err.message})
             return;
         }
         res.send(result);
