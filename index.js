@@ -33,6 +33,18 @@ app.post("/cadastro", (req, res, next) => {
     })
 })
 
+app.get("/:id", (req, res, next) => {
+    const id = req.params.id;
+    db.all(`SELECT * FROM cliente WHERE id=${id}`,
+    function(err, result){
+        if(err) {
+            res.status(400).json({ "error": err.message })
+            return;
+        }
+        res.send(result);
+    })
+})
+
 app.listen(3000, () => {
     console.log('Iniciando o servidor express')
 })
